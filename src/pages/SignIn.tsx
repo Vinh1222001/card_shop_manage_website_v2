@@ -83,6 +83,7 @@ const SignIn : FC = () =>{
                          
                                     <TextField 
                                         {...field} 
+                                        required
                                         label={"Email"}
                                         type="email"
                                         helperText={errors.email?.message}
@@ -98,21 +99,35 @@ const SignIn : FC = () =>{
                         <Controller
                             name="password"
                             control={control}
+                            rules={{
+                                required: "Không được để trống miền này",
+                                pattern:{
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]$/,
+                                    message: "Mật khẩu không hợp lệ"
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message: "Mật khẩu không hợp lệ"
+                                }
+                            }}
                             render={
                                 ({field}) =>(
                                     <TextField 
                                         {...field} 
+                                        required
                                         label={"Password"}
                                         type={showPassword?"text":"password"}
-                                        helperText="Something"
+                                        helperText={errors.password?.message}
                                         slotProps={{
                                             input:{
                                                 endAdornment:
                                                     <IconButton onClick={() => setShowPassword(state => !state)}>
-                                                        {showPassword? <VisibilityIcon/> : <VisibilityOffIcon/>}
+                                                        {showPassword? <VisibilityOffIcon/> : <VisibilityIcon/>}
                                                     </IconButton>
                                             }
                                         }}
+                                        error={!!errors.password?.message}
+
                                     />
                                 )
                             }
