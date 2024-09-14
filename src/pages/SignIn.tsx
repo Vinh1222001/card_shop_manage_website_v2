@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { createAdminUser, signIn } from "../services/auth";
 
 interface IFormValue{
     email: string,
@@ -30,13 +31,13 @@ const SignIn : FC = () =>{
 
     const onSubmit : SubmitHandler<IFormValue> = data =>{
         // trigger(["email", "password"])
-        console.log(data);
+        // console.log(data);
+        signIn(data)
         
     }
 
-    console.log(errors.email);
+    // console.log(errors.email);
     
-
     return(
         <Grow appear in timeout={500} easing={"ease"}>
             
@@ -102,7 +103,7 @@ const SignIn : FC = () =>{
                             rules={{
                                 required: "Không được để trống miền này",
                                 pattern:{
-                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]$/,
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
                                     message: "Mật khẩu không hợp lệ"
                                 },
                                 minLength: {
@@ -135,6 +136,10 @@ const SignIn : FC = () =>{
 
                         <Button type="submit" variant="contained" size="large">
                             Đăng nhập
+                        </Button>
+
+                        <Button variant="contained" size="medium" onClick={createAdminUser}>
+                            Đăng ký
                         </Button>
 
                     </Stack>
