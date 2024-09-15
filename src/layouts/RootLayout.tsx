@@ -16,22 +16,24 @@ const RootLayout : FC = () =>{
     }
 
     return(
-        <Box sx={{flexGrow: 1}} minHeight={"100vh"} alignContent={"stretch"} display={"flex"}>
+        <Box sx={{flexGrow: 1}} minHeight={"100vh"} alignContent={"stretch"} display={"flex"} width={"100%"}>
 
             <Grid2 container flexGrow={1}>
                 <Grid2 size={2} flexGrow={1} sx={{backgroundColor: "primary.dark"}}>
                     <NavigateSideBar/>
                 </Grid2>
-                <Grid2 container size={10} direction={"column"}>
-                    
-                    <Grid2>
-                        <Header/>
-                    </Grid2>
-                    
-                    <Grid2>
+                <Grid2 size={10} direction={"column"} >
+                    <Stack maxHeight={"100vh"}>
 
-                        <Outlet/>
-                    </Grid2>
+                        <Box boxShadow={1}>
+                            <Header/>
+                        </Box>
+                        
+                        <Box overflow={"auto"} flexGrow={1}>
+
+                            <Outlet/>
+                        </Box>
+                    </Stack>
                 </Grid2>
             </Grid2>
         </Box>

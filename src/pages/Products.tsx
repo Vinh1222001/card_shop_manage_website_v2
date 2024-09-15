@@ -1,11 +1,18 @@
-import { Container } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { FC } from "react";
+import ProductList from "../components/Products/ProductList";
 
 const Products:FC = ()=>{
+
     return(
-        <Container>
-            Products
-        </Container>
+        <Box padding={1} width={"100%"}>
+
+            <Paper sx={{ width: '100%'}}>
+                
+                <ProductList/>
+            </Paper>
+
+        </Box>
     )
 }
 

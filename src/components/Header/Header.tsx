@@ -2,7 +2,6 @@ import { Avatar, Button, IconButton, Stack } from "@mui/material";
 import { FC, useContext } from "react";
 
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { blueGrey } from "@mui/material/colors";
 import { AdminStateContext } from "../../context/userContext";
 import BreadCrumbs from "./BreadCrumb";
 
@@ -14,7 +13,7 @@ const Header:FC = () =>{
         <Stack 
             direction={"row"} 
             sx={{
-                backgroundColor: blueGrey[800]
+                backgroundColor: "primary.main"
             }}
             justifyContent={"space-between"}
             padding={"0.5em 2em"}
