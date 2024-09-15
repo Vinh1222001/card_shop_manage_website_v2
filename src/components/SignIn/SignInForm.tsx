@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 
 import { Stack, Avatar, Typography, TextField, IconButton, Button } from "@mui/material"
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,6 +8,9 @@ import { storeInfo } from "../../assets/logo"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { signAdminIn } from "../../services/axios/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { getPersistAuthLocalStorage, setPersistAuthLocalStorage } from "../../utils/localStorage";
+import { AdminStateContext } from "../../context/userContext";
 
 interface IFormValue{
     email: string,
@@ -21,15 +24,23 @@ const logo = {
 
 const SignInForm : FC = () =>{
 
+    const adminState = useContext(AdminStateContext)
+
+    const navigate = useNavigate()
+
     const MutateSignAdminIn = useMutation({
         mutationFn: signAdminIn,
         onSuccess: (data) => {
-          console.log('Login success:', data);
-          // Store the token in localStorage or context
-          //localStorage.setItem('authToken', data.token); // Assuming API returns a token
+            console.log('Login success:', data);
+            // Store the token in localStorage or context
+            setPersistAuthLocalStorage(data)
+            
+            adminState?.setAdminState(getPersistAuthLocalStorage())
+
+            navigate("/")    
         },
         onError: (error) => {
-          console.error('Login failed:', error);
+            console.error('Login failed:', error);
         },
 
       });

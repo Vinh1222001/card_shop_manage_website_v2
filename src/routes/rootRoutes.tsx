@@ -2,21 +2,32 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import RootLayout from "../layouts/RootLayout";
 import SignIn from "../pages/SignIn";
 import App from "../App";
-
-const flag = true as boolean
+import DashBoard from "../pages/DashBoard";
+import Products from "../pages/Products";
 
 const rootRoute = createBrowserRouter([
 
     {
         element: <App/>,
         children: [
-            {
-                index: true,
-                element: <Navigate to={flag? "sign-in" : "/"} replace/> 
-            },
+
             {
                 path: "/",
-                element: <RootLayout/>
+                element: <RootLayout/>,
+                children:[
+                    {
+                        index: true,
+                        element: <Navigate to="/dash-board" replace />,
+                    },
+                    {
+                        path: "dash-board",
+                        element: <DashBoard/>
+                    },
+                    {
+                        path: "products",
+                        element: <Products/>
+                    }
+                ]
             },
             {
                 path: "sign-in",
