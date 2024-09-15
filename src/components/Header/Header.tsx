@@ -16,28 +16,32 @@ const Header:FC = () =>{
             sx={{
                 backgroundColor: blueGrey[800]
             }}
-            justifyContent={"end"}
-            padding={1}
+            justifyContent={"space-between"}
+            padding={"0.5em 2em"}
             gap={1}
+            alignItems={"center"}
         >
             <BreadCrumbs/>
 
-            <IconButton sx={{color: 'white'}}>
-                <NotificationsActiveIcon/>
-            </IconButton>
+            <Stack gap={1} direction={"row"}>
 
-            <Button
-                variant="text"
-                endIcon={
-                    <Avatar src={adminState?.adminState.user.avatar}/>
-                }
-                size="small"
-                sx={{
-                    color: 'white'
-                }}
-            >
-                {adminState?.adminState.user.full_name}
-            </Button>
+                <IconButton sx={{color: 'white'}}>
+                    <NotificationsActiveIcon/>
+                </IconButton>
+
+                <Button
+                    variant="text"
+                    endIcon={
+                        <Avatar src={adminState?.adminState.user.avatar}/>
+                    }
+                    size="small"
+                    sx={{
+                        color: 'white'
+                    }}
+                >
+                    {adminState?.adminState.user.full_name}
+                </Button>
+            </Stack>
         </Stack>
     )
 }

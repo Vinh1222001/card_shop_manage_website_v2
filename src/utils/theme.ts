@@ -29,7 +29,9 @@ const theme = createTheme({
       background:{
           default: process.env.REACT_APP_BACKGROUND_COLOR
       }
-    }
+    },
+  
+  
 })
 
 export default theme

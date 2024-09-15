@@ -1,19 +1,52 @@
-import { Breadcrumbs } from "@mui/material";
+import { Breadcrumbs, Typography } from "@mui/material";
 import { FC } from "react";
-import { useMatches } from "react-router-dom";
+import { Link, Params, useMatches } from "react-router-dom";
+
+interface IMatches {
+    id: string;
+    pathname: string;
+    params: Params<string>;
+    data: unknown;
+    handle: unknown;
+  }
+  
+type HandleType={
+    crumb : (routeSeg: string, pageName: string) => {routeSegment:string, routeName:string};
+}
+
+type PathName = {
+    name: string
+}
 
 const BreadCrumbs:FC =()=>{
-    let matches = useMatches();
+      
+    const matches: IMatches[] = useMatches();
 
-    let crumbs = matches
-        // .filter((match) => Boolean(match.handle?.crumb))
-    //     .map((match) => match.handle.crumb(match.pathname, match.data?.name));
-    console.log(crumbs);
-    
+    const crumbs = matches
+    .filter((match) =>
+        Boolean(match.handle && (match.handle as HandleType).crumb)
+    )
+    .map((match) => (
+        match.handle as HandleType).crumb(
+            match.pathname, 
+            (match.data as PathName).name
+        )
+    );
     
     return(
-        <Breadcrumbs>
-            Something
+        <Breadcrumbs sx={{color: "white"}}>
+            {
+                crumbs.map((crumb, index)=>(
+          
+                      <Link to={crumb.routeSegment} key={`crumb-${index}`} style={{textDecoration: "none"}}>
+                        <Typography color="white">
+
+                            {crumb.routeName}
+                        </Typography>
+                      </Link>
+                    )
+                )
+            }
         </Breadcrumbs>
     )
 }
